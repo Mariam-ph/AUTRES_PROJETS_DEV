@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arbre Décisionnel des Commandes Git</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .tree ul {
+            padding-top: 20px;
+            position: relative;
+            transition: all 0.5s;
+            text-align: center;
+        }
+
+        .tree li {
+            float: left;
+            list-style-type: none;
+            position: relative;
+            padding: 20px 5px 0 5px;
+            text-align: center;
+            transition: all 0.5s;
+        }
+
+        /* The connectors */
+        .tree li::before, .tree li::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 50%;
+            border-top: 2px solid #333;
+            width: 50%;
+            height: 20px;
+        }
+        .tree li::after {
+            right: auto;
+            left: 50%;
+            border-left: 2px solid #333;
+        }
+
+        /* The leaf nodes */
+        .tree li:only-child::after, .tree li:only-child::before {
+            display: none;
+        }
+        .tree li:only-child {
+            padding-top: 0;
+        }
+
+        /* The parent node */
+        .tree li:first-child::before, .tree li:last-child::after {
+            border: 0 none;
+        }
+        .tree li:last-child::before {
+            border-right: 2px solid #333;
+            border-radius: 0 5px 0 0;
+        }
+        .tree li:first-child::after {
+            border-radius: 5px 0 0 0;
+        }
+
+        /* Style the nodes */
+        .tree ul ul::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            border-left: 2px solid #333;
+            width: 0;
+            height: 20px;
+        }
+        .tree li a {
+            border: 2px solid #333;
+            padding: 10px;
+            text-decoration: none;
+            color: #000;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            display: inline-block;
+            border-radius: 5px;
+            background-color: #fff;
+            transition: all 0.5s;
+        }
+        .tree li a:hover, .tree li a:hover + ul li a {
+            background: #c8e4f8;
+            color: #000;
+            border: 2px solid #94a0b4;
+        }
+        .tree li a:hover + ul li::after, 
+        .tree li a:hover + ul li::before, 
+        .tree li a:hover + ul::before, 
+        .tree li a:hover + ul ul::before {
+            border-color: #94a0b4;
+        }
+
+        .tooltip {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            max-width: 200px;
+            text-align: left;
+        }
+
+        .tree li:hover .tooltip {
+            display: block;
+        }
+
+        .icon {
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <h1>Arbre Décisionnel des Commandes Git</h1>
+    <div class="tree">
+        <ul>
+            <li>
+                <a href="#" style="background-color: #E6F5E6;"><img src="https://img.icons8.com/ios-filled/20/000000/folder-invisible.png" class="icon" alt="Nouveau Projet"> <strong>Commencer un Nouveau Projet</strong></a>
+                <div class="tooltip">Initialisez un nouveau dépôt Git</div>
+                <ul>
+                    <li>
+                        <a href="#" style="background-color: #FFF9E6;"><img src="https://img.icons8.com/ios-filled/20/000000/add.png" class="icon" alt="Initialiser"> <strong>git init</strong><br>(Initialiser un dépôt Git vide)</a>
+                        <div class="tooltip">Crée un nouveau dépôt Git vide</div>
+                        <ul>
+                            <li>
+                                <a href="#" style="background-color: #FFE6E6;"><img src="https://img.icons8.com/ios-filled/20/000000/file.png" class="icon" alt="Ajouter"> <strong>Ajouter des Fichiers/Commits</strong></a>
+                                <div class="tooltip">Ajoutez des fichiers ou enregistrez des modifications</div>
+                                <ul>
+                                    <li>
+                                        <a href="#" style="background-color: #FFCCCC;"><img src="https://img.icons8.com/ios-filled/20/000000/plus.png" class="icon" alt="Ajouter Fichiers"> <strong>git add &lt;file&gt;</strong><br>(Vous avez de nouveaux fichiers ou des modifications ?)</a>
+                                        <div class="tooltip">Ajoutez de nouveaux fichiers ou modifications</div>
+                                    </li>
+                                    <li>
+                                        <a href="#" style="background-color: #FFCCCC;"><img src="https://img.icons8.com/ios-filled/20/000000/edit.png" class="icon" alt="Commit"> <strong>git commit -m "message"</strong><br>(Vous avez ajouté des fichiers avec git add ?)</a>
+                                        <div class="tooltip">Enregistrez vos modifications avec un message de commit</div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" style="background-color: #E6F9FF;"><img src="https://img.icons8.com/ios-filled/20/000000/forward.png" class="icon" alt="Pousser"> <strong>Pousser vers Remote</strong></a>
+                                <div class="tooltip">Envoyez vos commits locaux vers un dépôt distant</div>
+                                <ul>
+                                    <li>
+                                        <a href="#" style="background-color: #CCF2FF;"><img src="https://img.icons8.com/ios-filled/20/000000/cloud.png" class="icon" alt="Remote"> <strong>git remote add origin &lt;url&gt;</strong><br>(Vous avez un dépôt distant configuré ?)</a>
+                                        <div class="tooltip">Configurez un dépôt distant pour votre projet</div>
+                                    </li>
+                                    <li>
+                                        <a href="#" style="background-color: #CCF2FF;"><img src="https://img.icons8.com/ios-filled/20/000000/upload.png" class="icon" alt="Push"> <strong>git push -u origin main</strong><br>(Vous voulez envoyer vos commits locaux vers le dépôt distant ?)</a>
+                                        <div class="tooltip">Envoyez vos commits vers le dépôt distant principal</div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" style="background-color: #F9E6FF;"><img src="https://img.icons8.com/ios-filled/20/000000/branch.png" class="icon" alt="Branches"> <strong>Travailler avec des Branches</strong></a>
+                                <div class="tooltip">Gérez les branches pour différentes versions de votre projet</div>
+                                <ul>
+                                    <li>
+                                        <a href="#" style="background-color: #E6CCFF;"><img src="https://img.icons8.com/ios-filled/20/000000/branch.png" class="icon" alt="Nouvelle Branche"> <strong>git branch &lt;new-branch&gt;</strong><br>(Vous avez besoin d'une nouvelle branche ?)</a>
+                                        <div class="tooltip">Créez une nouvelle branche pour votre projet</div>
+                                    </li>
+                                    <li>
+                                        <a href="#" style="background-color: #E6CCFF;"><img src="https://img.icons8.com/ios-filled/20/000000/swap.png" class="icon" alt="Changer Branche"> <strong>git checkout &lt;branch&gt;</strong><br>(Vous devez changer de branche ?)</a>
+                                        <div class="tooltip">Changez de branche pour travailler sur une autre version</div>
+                                    </li>
+                                    <li>
+                                        <a href="#" style="background-color: #E6CCFF;"><img src="https://img.icons8.com/ios-filled/20/000000/merge.png" class="icon" alt="Fusionner"> <strong>git merge &lt;branch-to-merge&gt;</strong><br>(Vous devez fusionner des branches ?)</a>
+                                        <div class="tooltip">Fusionnez les modifications d'une branche dans une autre</div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" style="background-color: #E6E6FF;"><img src="https://img.icons8.com/ios-filled/20/000000/team.png" class="icon" alt="Collaborer"> <strong>Collaborer avec une Équipe</strong></a>
+                                <div class="tooltip">Travaillez avec d'autres personnes sur le même projet</div>
+                                <ul>
+                                    <li>
+                                        <a href="#" style="background-color: #CCCCFF;"><img src="https://img.icons8.com/ios-filled/20/000000/clone.png" class="icon" alt="Cloner"> <strong>git clone &lt;repo-url&gt;</strong><br>(Vous voulez cloner un dépôt existant ?)</a>
+                                        <div class="tooltip">Clonez un dépôt Git existant</div>
+                                    </li>
+                                    <li>
+                                        <a href="#" style="background-color: #CCCCFF;"><img src="https://img.icons8.com/ios-filled/20/000000/download.png" class="icon" alt="Fetch"> <strong>git fetch &lt;remote&gt;</strong><br>(Vous voulez récupérer les modifications depuis le dépôt distant ?)</a>
+                                        <div class="tooltip">Récupérez les modifications depuis le dépôt distant sans fusionner</div>
+                                    </li>
+                                    <li>
+                                        <a href="#" style="background-color: #CCCCFF;"><img src="https://img.icons8.com/ios-filled/20/000000/sync.png" class="icon" alt="Pull"> <strong>git pull &lt;remote&gt; &lt;branch&gt;</strong><br>(Vous voulez fusionner les modifications du dépôt distant dans votre branche locale ?)</a>
+                                        <div class="tooltip">Récupérez et fusionnez les modifications du dépôt distant</div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" style="background-color: #FFE6CC;"><img src="https://img.icons8.com/ios-filled/20/000000/error.png" class="icon" alt="Conflits"> <strong>Résoudre des Conflits</strong></a>
+                                <div class="tooltip">Gérez les conflits de fusion dans votre projet</div>
+                                <ul>
+                                    <li>
+                                        <a href="#" style="background-color: #FFCC99;"><img src="https://img.icons8.com/ios-filled/20/000000/exclamation-triangle.png" class="icon" alt="Conflit"> <strong>git merge &lt;branch-with-conflict&gt;</strong><br>(Vous avez des conflits de fusion ?)</a>
+                                        <div class="tooltip">Fusionnez une branche qui a des conflits</div>
+                                    </li>
+                                    <li>
+                                        <a href="#" style="background-color: #FFCC99;"><img src="https://img.icons8.com/ios-filled/20/000000/fix.png" class="icon" alt="Résoudre"> <strong>Résoudre les conflits dans les fichiers</strong><br>(Avez-vous résolu les conflits dans les fichiers concernés ?)</a>
+                                        <div class="tooltip">Résolvez les conflits de fusion dans vos fichiers</div>
+                                    </li>
+                                    <li>
+                                        <a href="#" style="background-color: #FFCC99;"><img src="https://img.icons8.com/ios-filled/20/000000/add.png" class="icon" alt="Ajouter Résolu"> <strong>git add &lt;resolved-file&gt;</strong><br>(Avez-vous ajouté les fichiers résolus ?)</a>
+                                        <div class="tooltip">Ajoutez les fichiers après avoir résolu les conflits</div>
+                                    </li>
+                                    <li>
+                                        <a href="#" style="background-color: #FFCC99;"><img src="https://img.icons8.com/ios-filled/20/000000/checkmark.png" class="icon" alt="Commit Résolu"> <strong>git commit -m "resolved conflicts"</strong><br>(Avez-vous commité les résolutions de conflits ?)</a>
+                                        <div class="tooltip">Commitez vos résolutions de conflits</div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
+
